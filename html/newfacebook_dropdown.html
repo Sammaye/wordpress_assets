@@ -1,0 +1,117 @@
+<html>
+  <head>
+    <title>New facebook dropdown using the jdropdown plugin</title>
+    <script type="text/javascript" src="/wordpress/js/jquery.js"></script>
+    <script type="text/javascript" src="/wordpress/js/jdropdown.js"></script>
+
+    <script type='text/javascript'>
+      $(function(){
+        $('.fb_dropdown_wo_data').jdropdown({ 'container': '#fb_menu', 'orientation': 'right',
+          'items': [{'label': 'Everyone'}, {'label': 'Friends'}, {'label': 'Only Me'}, {'label': 'Customize'}] });
+
+        $('.fb_dropdown_w_data').jdropdown({ 'container': '#fb_menu', 'orientation': 'right' });
+
+        $(document).on('jdropdown.selectItem', '#fb_menu a', function(e, event){
+          event.preventDefault();
+          alert('You selected: '+$(this).parent().data('jdropdown.item').label);
+
+          // Do some crazy AJAXy weirdy stuff here to make your app awesome
+        });
+
+		$('.fb_dropdown_w_url').jdropdown({ 'container': '#fb_menu_urls', 'orientation': 'right' });
+        $(document).on('jdropdown.selectItem', '#fb_menu_urls a', function(e, event){
+          event.preventDefault();
+		  window.location = $(this).parent().data('jdropdown.item').url;
+          //alert('You selected: '+$(this).parent().data('jdropdown.item').label);
+        });
+      });
+    </script>
+
+    <style type="text/css">
+      @charset "utf-8";
+      /**
+       * Page elements
+       */
+      *{
+        margin:0;
+        padding:0;
+      }
+
+      body{
+          color: #333333;
+          direction: ltr;
+          font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+          font-size: 11px;
+          text-align: left;
+      }
+
+      .clearer{
+        clear:both;
+      }
+
+      h1{
+        width:600px; margin:auto; margin-top:40px;
+      }
+
+	  .first_box{
+		width:400px; margin:auto; margin-top:60px;
+	  }
+
+	  .second_box{
+		width:400px; margin:auto; margin-top:120px;
+	  }
+
+      /**
+       * The Menu CSS
+       */
+      .fb_dropdown{
+        width:40px; height:22px; text-decoration:none; float:left; display:block; background:url('/wordpress/images/privacy_anchor.png') 0 -22px;
+      }
+
+      .fb_dropdown:hover{
+        text-decoration:none;
+      }
+
+      .fb_dropdown.jdropdown-active{
+        background-position:0 0;
+      }
+
+      .fb_menu{
+        background:#EEEEEE none repeat scroll 0 0; border:1px solid #656565; padding:3px 0;
+      }
+
+      .fb_menu ul{
+        list-style:none;
+      }
+
+      .fb_menu a{
+        display:block; font-weight:normal; width:137px; text-align:left; overflow:hidden; padding:2px 4px 3px 19px; color:#111111; text-decoration:none;
+      }
+
+      .fb_menu a:hover{
+        background:#656565; color:white; text-decoration:none;
+      }
+
+      .fb_menu a:visited{
+        text-decoration:none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>New style facebook drop down menu</h1>
+    <div class='first_box'>
+      <a href='#' class='fb_dropdown fb_dropdown_wo_data'>&nbsp;</a>
+      <div class='clearer'></div>
+    </div>
+    <div class='second_box'>
+      <a href='#' class='fb_dropdown fb_dropdown_w_data' data-items='[{"label": "Everyone"}, {"label": "Friends"}, {"label": "Only Me"}, {"label": "Customize"}]'>&nbsp;</a>
+      <div class='clearer'></div>
+    </div>
+    <div class='second_box'>
+      <a href='#' class='fb_dropdown fb_dropdown_w_url' data-items='[{"label": "Google", "url": "http://www.google.com"}, {"label": "Facebook", "url": "http://www.facebook.com"}, {"label": "Yahoo!", "url": "http://www.yahoo.com"}, {"label": "Wordpress", "url": "http://www.wordpress.com"}]'>&nbsp;</a>
+      <div class='clearer'></div>
+    </div>
+    <div class='fb_menu' id='fb_menu' style='display:none;'></div>
+	<div class='fb_menu' id='fb_menu_urls' style='display:none;'></div>
+  </body>
+</html>
